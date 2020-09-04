@@ -611,6 +611,9 @@
           <if type="article-journal article-magazine article-newspaper post-weblog review review-book">
             <text variable="title" font-style="italic"/>
           </if>
+		  <else-if type="book">
+            <text variable="title" text-case="title" font-style="italic"/>		  
+		  </else-if>
           <else-if type="paper-conference">
             <choose>
               <if variable="collection-editor editor editorial-director" match="any">
