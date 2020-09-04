@@ -355,15 +355,15 @@
         <!-- Test for editortranslator and put that first as that becomes available -->
         <names variable="editor" delimiter=", ">
           <name name-as-sort-order="all" and="text" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
-          <label form="short" prefix=" (" suffix=")" text-case="title"/>
+          <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
         </names>
         <names variable="editorial-director">
           <name name-as-sort-order="all" and="text" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
-          <label form="short" prefix=" (" suffix=")" text-case="title"/>
+          <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
         </names>
         <names variable="collection-editor">
           <name name-as-sort-order="all" and="text" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
-          <label form="short" prefix=" (" suffix=")" text-case="title"/>
+          <label form="short" prefix=" (" suffix=")" text-case="lowercase"/>
         </names>
         <choose>
           <if variable="title">
@@ -1472,7 +1472,7 @@
             <names variable="editor translator" delimiter=", &amp; ">
               <!-- Change to editortranslator and move editor to substitute as that becomes available -->
               <name and="text" initialize-with=". " delimiter=", "/>
-              <label form="short" text-case="title" prefix=" (" suffix=")"/>
+              <label form="short" text-case="lowercase" prefix=" (" suffix=")"/>
               <substitute>
                 <names variable="editorial-director"/>
                 <names variable="collection-editor"/>
