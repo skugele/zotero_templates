@@ -1433,7 +1433,7 @@
         <choose>
           <if variable="volume">
             <group>
-              <text variable="volume" font-style="italic"/>
+              <text variable="volume" font-weight="bold"/>
               <text variable="issue" prefix="(" suffix=")"/>
             </group>
           </if>
