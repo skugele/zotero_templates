@@ -1892,7 +1892,7 @@
         </if>
         <else>
           <group delimiter=" ">
-            <group delimiter=". " suffix=".">
+            <group delimiter=" " suffix="">
               <text macro="author-bib"/>
               <text macro="date-bib"/>
               <text macro="title-and-descriptions"/>
