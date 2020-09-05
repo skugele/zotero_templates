@@ -605,7 +605,16 @@
         <!-- Other types are italicized based on presence of container-title.
              Assume that review and review-book are published in periodicals/blogs,
              not just on a web page (ex. 69) -->
-        <text variable="title" suffix=","/>
+        <choose>
+          <!-- JAIC places double quotes around conference titles -->
+          <!-- TODO: Note sure what to do if the title contains quotes -->
+          <if type="paper-conference">
+              <text variable="title" prefix="&quot;" suffix=",&quot;"/>
+          </if>
+          <else>
+              <text variable="title" suffix=","/>
+          </else>
+        </choose>
       </else-if>
       <else>
         <choose>
@@ -1434,6 +1443,12 @@
           <if type="article-journal" match="any">
             <text variable="container-title" font-style="italic" text-case="title"/>
           </if>
+          <else-if type="paper-conference">
+            <group delimiter=" ">
+              <text term="in" text-case="lowercase"/>
+              <text variable="container-title" font-style="italic" text-case="title" suffix=","/>
+            </group>
+          </else-if>
           <else>
             <text variable="container-title" font-style="italic" text-case="title" suffix=","/>
           </else>
@@ -1463,6 +1478,11 @@
           <else>
             <choose>
               <if variable="page">
+                <choose>
+                  <if type="paper-conference">
+                    <label variable="page" form="short"/>
+                  </if>
+                </choose>
                 <text variable="page"/>
               </if>
             </choose>
