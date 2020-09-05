@@ -1444,9 +1444,14 @@
             <text variable="container-title" font-style="italic" text-case="title"/>
           </if>
           <else-if type="paper-conference">
-            <group delimiter=" ">
+            <group delimiter=" " suffix=",">
               <text term="in" text-case="lowercase"/>
-              <text variable="container-title" font-style="italic" text-case="title" suffix=","/>
+              <text variable="container-title" font-style="italic" text-case="title"/>
+              <choose>
+                <if variable="publisher-place">
+                  <text variable="publisher-place" prefix="(" suffix=")"/>
+                </if>
+              </choose>
             </group>
           </else-if>
           <else>
