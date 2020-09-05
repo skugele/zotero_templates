@@ -763,7 +763,7 @@
   <macro name="parenthetical-container">
     <choose>
       <if variable="container-title" match="any">
-        <group prefix="(" suffix=")">
+        <group>
           <group delimiter="; ">
             <text macro="database-location"/>
             <choose>
@@ -1430,23 +1430,43 @@
   <macro name="container-periodical">
     <group delimiter=". ">
       <group delimiter=" ">
-        <text variable="container-title" font-style="italic" text-case="title"/>
+        <choose>
+          <if type="article-journal" match="any">
+            <text variable="container-title" font-style="italic" text-case="title"/>
+          </if>
+          <else>
+            <text variable="container-title" font-style="italic" text-case="title" suffix=","/>
+          </else>
+        </choose>
         <choose>
           <if variable="volume">
             <group>
               <text variable="volume" font-weight="bold"/>
               <text variable="issue" prefix="(" suffix=")"/>
+              <choose>
+                <if variable="page">
+                  <text variable="page" prefix=", "/>
+                </if>
+              </choose>
             </group>
           </if>
+          <else-if variable="issue">
+            <group>
+              <text variable="issue" font-style="italic"/>
+              <choose>
+                <if variable="page">
+                  <text variable="page" prefix=", "/>
+                </if>
+              </choose>
+            </group>
+          </else-if>
           <else>
-            <text variable="issue" font-style="italic"/>
-          </else>
-        </choose>
-        <choose>
-          <if variable="page">
-            <text variable="page"/>
-          </if>
-          <else>
+            <choose>
+              <if variable="page">
+                <text variable="page"/>
+              </if>
+            </choose>
+
             <!-- Ex. 6: Journal article with article number or eLocator -->
             <!-- This should be localized -->
             <text variable="number" prefix="Article "/>
@@ -1481,7 +1501,7 @@
               </substitute>
             </names>
             <group delimiter=": " font-style="italic">
-              <text variable="container-title"/>
+              <text variable="container-title" suffix=", "/>
               <!-- Replace with volume-title as that becomes available -->
               <choose>
                 <if is-numeric="volume" match="none">
