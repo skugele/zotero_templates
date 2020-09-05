@@ -1523,9 +1523,9 @@
             <group delimiter=": ">
               <choose>
                 <if type="chapter">
-                  <group delimiter=" ">
+                  <group delimiter=" " suffix=", ">
                     <text variable="container-title" font-style="italic"/>
-                    <text variable="publisher" prefix="(" suffix="), "/>
+                    <text macro="publisher"/>
                   </group>
                 </if>
                 <else>
