@@ -1566,6 +1566,12 @@
             </if>
           </choose>
         </if>
+        <else-if type="book report" match="any">
+          <group delimiter=", ">
+            <text variable="publisher"/>
+            <text variable="publisher-place"/>
+          </group>
+        </else-if>
         <else-if type="post webpage">
           <!-- For websites, treat container title like publisher -->
           <group delimiter="; ">
@@ -1605,25 +1611,29 @@
     </group>
   </macro>
   <macro name="access">
-    <choose>
-      <if variable="DOI" match="any">
-        <text variable="DOI" prefix="https://doi.org/"/>
-      </if>
-      <else-if variable="URL">
-        <group delimiter=" ">
-          <choose>
-            <if variable="issued status" match="none">
-              <group delimiter=" ">
-                <text term="retrieved" text-case="capitalize-first"/>
-                <date variable="accessed" form="text" suffix=","/>
-                <text term="from"/>
-              </group>
-            </if>
-          </choose>
-          <text variable="URL"/>
-        </group>
-      </else-if>
-    </choose>
+    <group delimiter=", ">
+      <choose>
+        <if variable="DOI" match="any">
+          <text variable="DOI" prefix="doi:"/>
+        </if>
+      </choose>
+      <choose>
+        <if variable="URL">
+          <group delimiter=" ">
+            <choose>
+              <if variable="issued status" match="none">
+                <group delimiter=" ">
+                  <text term="retrieved" text-case="capitalize-first"/>
+                  <date variable="accessed" form="text" suffix=","/>
+                  <text term="from"/>
+                </group>
+              </if>
+            </choose>
+            <text variable="URL"/>
+          </group>
+        </if>
+      </choose>
+    </group>
   </macro>
   <macro name="event">
     <choose>
@@ -1952,8 +1962,8 @@
           </choose>
         </if>
         <else>
-          <group delimiter=" ">
-            <group delimiter=" " suffix=".">
+          <group delimiter=", " suffix=".">
+            <group delimiter=" " suffix="">
               <text macro="author-bib"/>
               <text macro="date-bib"/>
               <text macro="title-and-descriptions"/>
