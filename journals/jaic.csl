@@ -1441,7 +1441,7 @@
       <group delimiter=" ">
         <choose>
           <if type="article-journal" match="any">
-            <text variable="container-title" font-style="italic" text-case="title"/>
+            <text variable="container-title" form="short" font-style="italic" text-case="title"/>
           </if>
           <else-if type="paper-conference">
             <group delimiter=" " suffix=",">
