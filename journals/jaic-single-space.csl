@@ -609,10 +609,13 @@
           <!-- JAIC places double quotes around conference titles -->
           <!-- TODO: Note sure what to do if the title contains quotes -->
           <if type="paper-conference">
-              <text variable="title" prefix="&quot;" suffix=",&quot;"/>
+            <text variable="title" prefix="&quot;" suffix=",&quot;"/>
           </if>
+          <else-if type="chapter">
+            <text variable="title" text-case="title"/>
+          </else-if>
           <else>
-              <text variable="title" suffix=","/>
+            <text variable="title" suffix=","/>
           </else>
         </choose>
       </else-if>
