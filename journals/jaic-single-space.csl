@@ -1448,8 +1448,12 @@
               <text term="in" text-case="lowercase"/>
               <text variable="container-title" font-style="italic" text-case="title"/>
               <choose>
-                <if variable="publisher-place">
-                  <text variable="publisher-place" prefix="(" suffix=")"/>
+                <if variable="publisher">
+                  <text variable="event" prefix="(" suffix=")" font-style="italic"/>
+                  <group delimiter=", " prefix="(" suffix=")">
+                    <text variable="publisher"/>
+                    <text variable="publisher-place"/>
+                  </group>
                 </if>
               </choose>
             </group>
@@ -1525,29 +1529,49 @@
                 <names variable="container-author"/>
               </substitute>
             </names>
-            <group delimiter=": ">
-              <choose>
-                <if type="chapter">
-                  <group delimiter=" " suffix=", ">
-                    <text variable="container-title" font-style="italic"/>
-                    <text macro="publisher"/>
-                  </group>
-                </if>
-                <else>
-                  <text variable="container-title" font-style="italic" suffix=", "/>
-                </else>
-              </choose>
+            <choose>
+              <if type="chapter">
+                <group delimiter=" " suffix=", ">
+                  <text variable="container-title" font-style="italic"/>
+                  <text macro="publisher"/>
+                </group>
+              </if>
+              <else-if type="paper-conference">
+                <group delimiter=" " suffix=", ">
+                  <text variable="container-title" font-style="italic"/>
+                  <choose>
+                    <if variable="event">
+                        <text variable="event" prefix="(" suffix=")" font-style="italic"/>
+                    </if>
+                  </choose>
+                  <choose>
+                    <if variable="publisher">
+                      <group delimiter=", " prefix="(" suffix=")">
+                        <text variable="publisher"/>
+                        <text variable="publisher-place"/>
+                      </group>
+                    </if>
+                    <!-- publisher-place interpreted as event location since publisher missing -->
+                    <else-if variable="publisher-place">
+                        <text variable="publisher-place" prefix="(" suffix=")"/>
+                    </else-if>
+                  </choose>
+                </group>
+              </else-if>
+              <else>
+                <text variable="container-title" font-style="italic" suffix=", "/>
+              </else>
+            </choose>
 
-              <!-- Replace with volume-title as that becomes available -->
-              <choose>
-                <if is-numeric="volume" match="none">
-                  <group delimiter=" ">
-                    <label variable="volume" form="short" text-case="capitalize-first"/>
-                    <text variable="volume"/>
-                  </group>
-                </if>
-              </choose>
-            </group>
+            <!-- Replace with volume-title as that becomes available -->
+            <choose>
+              <if is-numeric="volume" match="none">
+                <group delimiter=" ">
+                  <label variable="volume" form="short" text-case="capitalize-first"/>
+                  <text variable="volume"/>
+                </group>
+              </if>
+            </choose>
           </group>
 
           <text macro="parenthetical-container"/>
@@ -1566,7 +1590,7 @@
             </if>
           </choose>
         </if>
-        <else-if type="book report" match="any">
+        <else-if type="book chapter report" match="any">
           <group delimiter=", ">
             <text variable="publisher"/>
             <text variable="publisher-place"/>
@@ -1972,7 +1996,7 @@
 
               <!-- book-like publications have publisher before page numbers -->
               <choose>
-                <if type="chapter" match="none">
+                <if type="chapter paper-conference" match="none">
                   <text macro="publisher"/>
                 </if>
               </choose>
