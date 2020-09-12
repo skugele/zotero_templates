@@ -611,9 +611,6 @@
           <if type="paper-conference">
             <text variable="title" prefix="&quot;" suffix=",&quot;"/>
           </if>
-          <else-if type="chapter">
-            <text variable="title" text-case="title"/>
-          </else-if>
           <else>
             <text variable="title" suffix=","/>
           </else>
@@ -1535,7 +1532,7 @@
             <choose>
               <if type="chapter">
                 <group delimiter=" " suffix=", ">
-                  <text variable="container-title" font-style="italic"/>
+                  <text variable="container-title" font-style="italic" text-case="title"/>
                   <text macro="publisher"/>
                 </group>
               </if>
